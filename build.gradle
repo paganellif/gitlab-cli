@@ -1,6 +1,7 @@
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.6.10'
     id 'application'
+    id 'jacoco'
 }
 
 group = 'me.filippopaganelli'
@@ -11,11 +12,20 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'org.jetbrains.kotlin:kotlin-test'
-}
+    // https://mvnrepository.com/artifact/info.picocli/picocli
+    implementation 'info.picocli:picocli:4.6.3'
 
-test {
-    useJUnitPlatform()
+    implementation 'com.google.guava:guava:31.0.1-jre'
+
+    implementation 'org.junit.jupiter:junit-jupiter:5.8.2'
+
+    // https://mvnrepository.com/artifact/io.cucumber/cucumber-junit
+    testImplementation 'io.cucumber:cucumber-junit:7.2.3'
+
+    testImplementation 'org.jetbrains.kotlin:kotlin-test'
+    testImplementation 'junit:junit:4.13.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+    testRuntimeOnly 'org.junit.vintage:junit-vintage-engine:5.8.2'
 }
 
 compileKotlin {
@@ -26,6 +36,31 @@ compileTestKotlin {
     kotlinOptions.jvmTarget = '16'
 }
 
+test {
+    useJUnitPlatform{
+        includeEngines("junit-jupiter", "junit-vintage")
+    }
+    finalizedBy jacocoTestReport // report is always generated after tests run
+}
+
+jacocoTestReport {
+    reports {
+        xml.required = true
+    }
+    dependsOn test // tests are required to run before generating the report
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'it.paganellif.gitlabcli.Main'
+        )
+    }
+    duplicatesStrategy(DuplicatesStrategy.WARN)
+    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+}
+
 application {
-    mainClassName = 'MainKt'
+    // Define the main class for the application.
+    mainClass = 'it.paganellif.gitlabcli.Main'
 }

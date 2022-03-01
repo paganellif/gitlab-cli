@@ -1,3 +1,5 @@
+package it.paganellif.gitlabcli
+
 fun main(args: Array<String>) {
     println("Hello World!")
 
