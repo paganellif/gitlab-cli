@@ -17,6 +17,14 @@ dependencies {
 
     implementation 'com.google.guava:guava:31.0.1-jre'
 
+    implementation "io.ktor:ktor-client-core:1.6.7"
+    implementation "io.ktor:ktor-client-cio:1.6.7"
+    implementation "io.ktor:ktor-client-serialization:1.6.7"
+    implementation "io.ktor:ktor-client-gson:1.6.7"
+
+    // https://mvnrepository.com/artifact/io.github.microutils/kotlin-logging
+    implementation 'io.github.microutils:kotlin-logging:2.0.11'
+
     implementation 'org.junit.jupiter:junit-jupiter:5.8.2'
 
     // https://mvnrepository.com/artifact/io.cucumber/cucumber-junit
@@ -53,7 +61,7 @@ jacocoTestReport {
 jar {
     manifest {
         attributes(
-                'Main-Class': 'it.paganellif.gitlabcli.Main'
+                'Main-Class': 'it.paganellif.gitlabcli.MainKt'
         )
     }
     duplicatesStrategy(DuplicatesStrategy.WARN)
@@ -62,5 +70,5 @@ jar {
 
 application {
     // Define the main class for the application.
-    mainClass = 'it.paganellif.gitlabcli.Main'
+    mainClass = 'it.paganellif.gitlabcli.MainKt'
 }
