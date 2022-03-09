@@ -1,0 +1,106 @@
+name: GitLab CLI Dev CI
+
+on:
+  push:
+    branches: [ develop, 'renovate/*' ]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up JDK 16
+        uses: actions/setup-java@v3
+        with:
+          java-version: '16'
+          distribution: 'adopt'
+          #cache: gradle
+
+      - name: Build
+        run: gradle build
+
+  #test:
+  #  runs-on: ubuntu-latest
+  #  steps:
+  #    - uses: actions/checkout@v3
+  #
+  #    - name: Set up JDK 16
+  #      uses: actions/setup-java@v3
+  #      with:
+  #        java-version: '16'
+  #        distribution: 'adopt'
+  #        #cache: gradle
+  #
+  #    - name: Test
+  #      run: gradle check
+  #
+  #    - name: Upload Test Artifact
+  #      uses: actions/upload-artifact@v3
+  #      with:
+  #        name: test-reports-artifacts
+  #        path: build/reports/jacoco/test/jacocoTestReport.xml
+
+  package-jar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up JDK 16
+        uses: actions/setup-java@v3
+        with:
+          java-version: '16'
+          distribution: 'adopt'
+          #cache: gradle
+
+      - name: Package
+        run: gradle jar
+
+      - name: Upload Package Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: package-artifacts
+          path: build/libs/*.jar
+
+  package-deb:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up JDK 16
+        uses: actions/setup-java@v3
+        with:
+          java-version: '16'
+          distribution: 'adopt'
+          #cache: gradle
+
+      - name: Package
+        run: gradle buildDeb
+
+      - name: Upload Package Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: package-artifacts
+          path: build/distributions/*.deb
+
+  package-rpm:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up JDK 16
+        uses: actions/setup-java@v3
+        with:
+          java-version: '16'
+          distribution: 'adopt'
+          #cache: gradle
+
+      - name: Package
+        run: gradle buildRpm
+
+      - name: Upload Package Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: package-artifacts
+          path: build/distributions/*.rpm
