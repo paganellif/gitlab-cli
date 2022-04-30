@@ -27,7 +27,7 @@ dependencies {
     implementation 'org.junit.jupiter:junit-jupiter:5.8.2'
 
     // https://mvnrepository.com/artifact/io.cucumber/cucumber-junit
-    testImplementation 'io.cucumber:cucumber-junit:7.3.2'
+    testImplementation 'io.cucumber:cucumber-junit:7.3.3'
 
     testImplementation 'org.jetbrains.kotlin:kotlin-test'
     testImplementation 'junit:junit:4.13.2'
