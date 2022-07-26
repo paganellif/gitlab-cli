@@ -24,7 +24,7 @@ dependencies {
     implementation 'io.github.microutils:kotlin-logging-jvm:2.1.21'
     implementation 'ch.qos.logback:logback-classic:1.2.11'
 
-    implementation 'org.junit.jupiter:junit-jupiter:5.8.2'
+    implementation 'org.junit.jupiter:junit-jupiter:5.9.0'
 
     // https://mvnrepository.com/artifact/io.cucumber/cucumber-junit
     testImplementation 'io.cucumber:cucumber-junit:7.3.4'
